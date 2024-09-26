@@ -1,0 +1,30 @@
+version: '3'
+services:
+  bucket-example-db:
+    container_name: bucket-example-db
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=Star1234!@
+      - MYSQL_DATABASE=basket_example
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+  bootstrap-database:
+    image: mysql:latest
+    command:
+      [
+        '/usr/bin/mysql',
+        '-uroot',
+        '-pStar1234!@',
+        '-hbucket-example-db',
+        '-e',
+        'source /iniziate.sql',
+      ]
+    volumes:
+      - ./iniziate.sql:/iniziate.sql
+    depends_on:
+      - bucket-example-db
+    restart: on-failure
+volumes:
+  mysql-data:
