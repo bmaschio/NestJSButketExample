@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import Basket from "./basket.entity";
 
 @Entity()
 export default class BasketItem {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   id: string;
 
   @Column()
@@ -13,4 +14,9 @@ export default class BasketItem {
 
   @Column()
   price: number;
+
+  @ManyToOne(() => Basket, (basket) => basket.basketItems, {
+    onDelete: "CASCADE",
+  })
+  basket: Basket;
 }

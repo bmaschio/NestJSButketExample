@@ -14,8 +14,11 @@ export const dataSourceOptions: DataSourceOptions = {
   synchronize: false,
   migrationsRun: false,
   logging: false,
-  entities: process.env.NODE_ENV === "test" ? ["src/**/*.entity.ts"] : ["dist/**/*.entity.js"],
-  migrations: ["dist/modules/auth/migration/*.js"],
+  entities:
+    process.env.NODE_ENV === "test"
+      ? ["src/**/*.entity.ts"]
+      : ["dist/**/*.entity.js"],
+  migrations: ["dist/migration/*.js"],
   charset: "utf8mb4_general_ci",
   extra: {
     timezone: "Z",
